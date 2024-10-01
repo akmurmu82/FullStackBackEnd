@@ -1,0 +1,11 @@
+Status Code	Meaning	Usage Example
+201	Created	New resource created
+200	OK	Resource updated successfully
+204	No Content	Resource deleted or updated without content
+400	Bad Request	Invalid request format or missing fields
+401	Unauthorized	Authentication required
+403	Forbidden	Permission denied
+404	Not Found	Resource not found
+409	Conflict	Resource already exists
+422	Unprocessable Entity	Validation errors
+500	Internal Server Error	Unexpected server error

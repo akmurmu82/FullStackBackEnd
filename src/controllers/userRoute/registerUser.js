@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const UserModel = require("../models/user.model");
+const UserModel = require("../../models/user.model");
 
 const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
@@ -15,7 +15,6 @@ const registerUser = async (req, res) => {
 
     // Hashing password
     const hashedPassword = await bcrypt.hash(password, 5);
-    console.log(hashedPassword);
     const newUser = await new UserModel({
       name,
       password: hashedPassword,
@@ -23,11 +22,9 @@ const registerUser = async (req, res) => {
     });
     newUser.save();
 
-    res.status(201).json({ status: true, message: "User registered." });
+    res.status(201).json({ message: "User registered.", data: newUser });
   } catch (error) {
-    res
-      .status(403)
-      .json({ status: 500, error, message: "Error while registering!" });
+    res.status(500).json({ error, message: "Error while registering!" });
   }
 };
 

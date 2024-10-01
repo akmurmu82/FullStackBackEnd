@@ -1,11 +1,11 @@
 const express = require("express");
 const connectDB = require("./src/db");
 const userRouter = require("./src/routes/userRoute");
+const blogRouter = require("./src/routes/blogRoute");
 require("dotenv").config();
 
 const server = express();
 const uri = process.env.MONGO_URI;
-console.log(uri);
 
 const port = process.env.PORT;
 
@@ -14,6 +14,7 @@ server.use(express.json());
 
 // Routes
 server.use("/user", userRouter);
+server.use("/blog", blogRouter);
 
 server.get("/", (req, res) => {
   res.send("Welcome to the FullStack Web App.");

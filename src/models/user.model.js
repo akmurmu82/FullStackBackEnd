@@ -10,6 +10,6 @@ const userSchema = mongoose.Schema(
   // use .toLocalString() to use in frontend
 );
 
-const UserModel = mongoose.model("blogify-users", userSchema);
+const UserModel = mongoose.model("users", userSchema);
 
 module.exports = UserModel;
