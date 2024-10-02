@@ -1,27 +1,39 @@
-const bcrypt = require("bcrypt");
 const blogModel = require("../../models/blog.model");
 
 const createBlog = async (req, res) => {
-  const { title, content, userId } = req.body;
+  const { title, content, userId, author, image, tag } = req.body;
 
   try {
+    // Check if a blog with the same title already exists
     let existingBlog = await blogModel.findOne({ title });
+
     if (existingBlog) {
+      console.log(existingBlog);
       return res.status(403).json({
-        message: "Blog already exists.",
+        message: "Blog with this title already exists.",
       });
     }
 
-    const newBlog = await new blogModel({
+    // Create and save the new blog
+    const newBlog = new blogModel({
       title,
-      content,
       userId,
+      author,
+      image,
+      content,
+      tag,
     });
-    newBlog.save();
 
-    res.status(201).json({ message: "Blog created.", data: newBlog });
+    await newBlog.save(); // Ensure the save operation is awaited
+
+    return res
+      .status(201)
+      .json({ message: "Blog created successfully.", data: newBlog });
   } catch (error) {
-    res.status(500).json({ error, message: "Error while creating blog!" });
+    console.error("Error while creating blog:", error);
+    return res
+      .status(500)
+      .json({ message: "Error while creating blog!", error });
   }
 };
 

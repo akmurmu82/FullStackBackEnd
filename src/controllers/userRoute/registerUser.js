@@ -7,8 +7,7 @@ const registerUser = async (req, res) => {
   try {
     let existingUser = await UserModel.findOne({ email });
     if (existingUser) {
-      return res.status(403).json({
-        status: true,
+      return res.status(409).json({
         message: "User already registered.",
       });
     }
